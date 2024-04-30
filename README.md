@@ -4,6 +4,9 @@
 - [Hardware Used](#hw-used)
 - [Hardware Setup](#hw-setup)
 - [Setup Software Environment](#setup-sw-env)
+- [Setup Firmware Project](#setup-fw-proj)
+- [Model specifications](#model-spec)
+- [How The Project Works](#how-works)
 
 ## Overview <div id='overview'/>
 
