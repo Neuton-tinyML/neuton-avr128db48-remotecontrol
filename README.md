@@ -48,7 +48,7 @@ To set this project up, you will need to install the following software:
 - MPLAB® XC8 compiler (https://microchip.com/mplab/compilers)
 - [**Optional**] TeraTerm Terminal (https://teratermproject.github.io/index-en.html)
 
-## Setup firmware project <div id='setup-fw-proj'/>
+## Setup Firmware Project <div id='setup-fw-proj'/>
 
 1. Clone this repository: https://github.com/Neuton-tinyML/neuton-avr128db48-remotecontrol
 2. In the MPLAB® X IDE, right-click on `Projects` view and choose `Open Project...`
@@ -73,7 +73,27 @@ To set this project up, you will need to install the following software:
 
  7. Explore the project and Neuton.AI model capabilities!
 
-## How the project works <div id='how-works'/>
+## Model specifications <div id='model-spec'/>
+
+The Neuton.AI Gesture Recognition solution memory footprint:
+
+__Version 1.0.2__
+|                       |    FLASH       |   SRAM      |
+| --------------------- | -------------- | ----------- |
+| __Total Footprint__   | __7.4 kB__     | __1.4 kB__  |
+| Signal Processing     | 4.0 kB         | 1.3 kB      |
+| Inference Engine      | 2.8 kB         |  0.07 kB    |
+| Model                 | 0.6 kB         | 0 kB        |
+
+Model Perfomance:
++ 7 classes.
++ 36 neurons.
++ Holdout Balanced Accuracy: __98.2 %__.
++ Inference time ( __including__ Signal processing ): __~8 ms__.
+
+*Estimated on AVR128DB48, 24 MHz, compiled with -O2 Microchip XC8 toolchain*
+
+## How The Project Works <div id='how-works'/>
 
  The project has UART logs and you can open the Serial Port to see them. The Serial Port(USART) has the following configuration:
 
@@ -92,3 +112,51 @@ Once the device is up and running, in the serial port terminal you should see si
 Neuton Version: 4.0.1
 Looking for user gestures...
 ```
+__How to Make Gestures__
+> **_NOTE:_**  The dataset for creating this model is very immature and this affects the generalization of the model on different persons, so please follow the instructions for good gesture recognition.
+
+To begin with, please make sure that the default (initial) position of the device is the same as following:
+
+![fw-proj-program-img](resources/initial_state.gif)
+
+Next, follow the images on how to make gestures. For better recognition use your wrists more when making gestures, and not your whole hand:
+
+__Swipe Right & Left__
+|                                        |                                               |
+| -------------------------------------- | --------------------------------------------- |
+| ![Alt Text](resources/swipe_right.gif) | ![Alt Text](resources/swipe_left.gif)        |
+| Swipe Right                            |    Swipe Left                                |
+
+__Rotation Clockwise & Counter Clockwise__
+
+|                                           |                                               |
+| --------------------------------------    | --------------------------------------------- |
+| ![Alt Text](resources/rotation_right.gif) | ![Alt Text](resources/rotation_left.gif)      |
+| Rotation Clockwise(Right)                 |    Rotation Counter Clockwise(Left)            |
+
+__Double Tap__
+
+|                                        |
+| -------------------------------------- |
+| ![Alt Text](resources/double_tap.gif) |
+| Double Tap                             |
+
+When performing gestures with the device, in the terminal, you should see the following messages:
+
+```
+Looking for user gestures...
+Predicted SWIPE LEFT 89 %
+Predicted DOUBLE TAP 96 %
+Predicted SWIPE LEFT 100 %
+Predicted SWIPE RIGHT 98 %
+Predicted SWIPE LEFT 100 %
+Predicted DOUBLE TAP 87 %
+Predicted ROTATION RIGHT 82 %
+Predicted ROTATION RIGHT 98 %
+Predicted ROTATION RIGHT 96 %
+Predicted ROTATION LEFT 74 %
+Predicted ROTATION LEFT 99 %
+Predicted ROTATION LEFT 99 %
+Predicted ROTATION LEFT 99 %
+```
+Have fun and use this model for your future gesture control projects!
