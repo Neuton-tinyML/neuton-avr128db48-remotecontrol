@@ -1,6 +1,7 @@
 #include "mcc_generated_files/system/system.h"
 #include "mcc_generated_files/timer/delay.h"
 #include "neuton/neuton.h"
+#include "neuton/neuton_version.h"
 #include "app/inference_postprocessing.h"
 #include "app/sleep_timer.h"
 #include "app/sensor.h"
@@ -37,8 +38,11 @@ int main(void)
     RTC_Start();
     sleep_timer_init();
     DELAY_milliseconds(1000);
+    
+    printf("\r\n===== Neuton.AI AVR128DB48 Gestures Recognition Demo =====\r\n");
+    printf("Neuton Version: %d.%d.%d\r\n", NEUTON_MAJOR_VERSION, NEUTON_MINOR_VERSION, NEUTON_PATCH_VERSION);
 
-    /* Init and configure sensor */
+    /* Init and configure sensor */    
     if (sensor_init(&sensor_, sensor_data_ready_cb_) != SNSR_STATUS_OK) 
     {
         printf("ERROR: sensor init result = %d\r\n", sensor_.status);
@@ -56,7 +60,7 @@ int main(void)
      /** Initialize Neuton.AI library */
     neuton_nn_setup();
     
-    printf("Neuton AI Gesture Recognition Demo\r\n");
+    printf("Looking for user gestures... \r\n");
 
     while (1)
     {
